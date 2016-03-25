@@ -3,6 +3,7 @@ import turtle
 import random
 
 
+
 def draw_trunk(tree_turtle):
     tree_turtle.back(10)
     for x in range(2):
@@ -59,7 +60,17 @@ def draw_tree(tree_turtle):
 
 def draw_branches(length, depth, tree_turtle):
     if depth == 0:
-        pass
+        # Define leaf colour
+        red = random.randint(30, 150)
+        green = random.randint(170, 230)
+        blue = random.randint(30, 150)
+
+        tree_turtle.color("black", (red, green, blue))
+        tree_turtle.begin_fill()
+        circle_size = random.randint(5,8)
+        tree_turtle.circle(circle_size)
+        tree_turtle.end_fill()
+
     else:
 
         depth -= 1
@@ -85,4 +96,6 @@ def draw_branches(length, depth, tree_turtle):
 
 
 my_turtle = turtle.Turtle()
+my_turtle.speed(0)
+turtle.colormode(255)
 draw_tree(my_turtle)
