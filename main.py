@@ -1,6 +1,6 @@
 # Challenge using turtle to create a tree using recursion #
 import turtle
-# import random
+import random
 
 
 def draw_trunk(tree_turtle):
@@ -13,7 +13,6 @@ def draw_trunk(tree_turtle):
         tree_turtle.forward(15 - x*2)
         tree_turtle.right(90)
         tree_turtle.forward(5)
-
 
     tree_turtle.pensize(20)
     tree_turtle.forward(10)
@@ -28,6 +27,19 @@ def draw_trunk(tree_turtle):
 
     tree_turtle.pensize(8)
     tree_turtle.forward(120)
+
+
+def curve_branch(tree_turtle, length):
+    full_length = length
+    while full_length > 0:
+        test = random.randint(0, 1)
+        if test == 0:
+            tree_turtle.right(2)
+        else:
+            tree_turtle.left(2)
+        tree_turtle.forward(5)
+        full_length -= 5
+
 
 def draw_tree(tree_turtle):
 
@@ -51,12 +63,14 @@ def draw_branches(length, depth, tree_turtle):
     else:
 
         depth -= 1
-
         tree_turtle.pensize(depth)
+
+        # Take current position and angle
         position = tree_turtle.pos()
         angle = tree_turtle.heading()
+
         tree_turtle.left(40)
-        tree_turtle.forward(length)
+        curve_branch(tree_turtle, length)
         draw_branches(length*(2/3), depth, tree_turtle)
 
         tree_turtle.penup()
@@ -66,7 +80,7 @@ def draw_branches(length, depth, tree_turtle):
 
         tree_turtle.pensize(depth)
         tree_turtle.right(40)
-        tree_turtle.forward(length)
+        curve_branch(tree_turtle, length)
         draw_branches(length*(2/3), depth, tree_turtle)
 
 
