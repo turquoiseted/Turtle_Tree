@@ -3,7 +3,6 @@ import turtle
 import random
 
 
-
 def draw_trunk(tree_turtle):
     tree_turtle.back(10)
     for x in range(2):
@@ -38,8 +37,8 @@ def curve_branch(tree_turtle, length):
             tree_turtle.right(2)
         else:
             tree_turtle.left(2)
-        tree_turtle.forward(5)
-        full_length -= 5
+        tree_turtle.forward(10)
+        full_length -= 10
 
 
 def draw_tree(tree_turtle):
@@ -67,19 +66,20 @@ def draw_branches(length, depth, tree_turtle):
 
         tree_turtle.color("black", (red, green, blue))
         tree_turtle.begin_fill()
-        circle_size = random.randint(5,8)
+        circle_size = random.randint(5,10)
         tree_turtle.circle(circle_size)
         tree_turtle.end_fill()
 
     else:
-
         depth -= 1
         tree_turtle.pensize(depth)
+        branches = random.randint(0,1)
 
         # Take current position and angle
         position = tree_turtle.pos()
         angle = tree_turtle.heading()
 
+        # branch left
         tree_turtle.left(40)
         curve_branch(tree_turtle, length)
         draw_branches(length*(2/3), depth, tree_turtle)
@@ -89,6 +89,18 @@ def draw_branches(length, depth, tree_turtle):
         tree_turtle.setheading(angle)
         tree_turtle.pendown()
 
+        if branches == 1:
+            # branch forward
+            tree_turtle.pensize(depth)
+            curve_branch(tree_turtle, length)
+            draw_branches(length*(2/3), depth, tree_turtle)
+
+            tree_turtle.penup()
+            tree_turtle.setpos(position)
+            tree_turtle.setheading(angle)
+            tree_turtle.pendown()
+
+        # branch right
         tree_turtle.pensize(depth)
         tree_turtle.right(40)
         curve_branch(tree_turtle, length)
